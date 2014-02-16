@@ -1,0 +1,341 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Standard RBM
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v,h) & = & \frac{1}{Z(v,h)}\exp\left(v^{\top}Wh+b^{\top}v+c^{\top}h\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v) & = & \frac{1}{Z(v)}\exp\left(b^{\top}v\right)\prod_{j}\left(1+\exp\left(v^{\top}W_{:,j}+c_{j}\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\log p(v) & = & b^{\top}v+\sum_{j}\log\left(1+\exp\left(v^{\top}W_{:,j}+c_{j}\right)\right)-\log Z(v)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\log p(v)}{\partial W_{:,j}} & = & \frac{\exp\left(v^{\top}W_{:,j}+c_{j}\right)}{1+\exp\left(v^{\top}W_{:,j}+c_{j}\right)}v-\left\langle \frac{\exp\left(v^{\top}W_{:,j}+c_{j}\right)}{1+\exp\left(v^{\top}W_{:,j}+c_{j}\right)}v\right\rangle _{p(v)}\\
+ & = & \sigma(v^{\top}W_{:,j}+c_{j})v-\left\langle \sigma(v^{\top}W_{:,j}+c_{j})v\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\log p(v)}{\partial b} & = & v-\left\langle v\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\log_{b}x & = & y\\
+x & = & b^{y}\\
+\log_{a}x & = & y\log_{a}b
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\log p(v)}{\partial c_{j}} & = & \sigma(v^{\top}W_{:,j}+c_{j})-\left\langle \sigma(v^{\top}W_{:,j}+c_{j})\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\log p(v)}{\partial v} & = & b+\sum_{j}\sigma\left(v^{\top}W_{:,j}+c_{j}\right)W_{:,j}-\log Z(v)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v_{i}|h) & = & \frac{1}{Z(v_{i})}\exp\left(v_{i}\left(\sum_{j}W_{ij}h_{j}+b_{i}\right)\right)\\
+ & = & \sigma\left(W_{i,:}h+b_{i}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(h_{i}|v) & \propto & \frac{1}{Z(h_{i})}\exp\left(h_{i}\left(\sum_{j}W_{ji}v_{j}+c_{i}\right)\right)\\
+ & = & \sigma\left(W_{:,i}v+c_{i}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\nabla W & = & vh^{\top}-\frac{1}{Z(v,h)}\sum_{\vec{v},\vec{h}}\exp\left(v^{\top}Wh+b^{\top}v+c^{\top}h\right)\left(vh^{\top}\right)\\
+ & = & vh^{\top}-\left\langle vh^{\top}\right\rangle _{v,h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\nabla b & = & v-\left\langle v\right\rangle _{v,h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\nabla c & = & h-\left\langle h\right\rangle _{v,h}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Half Gaussian RBM
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v,h) & = & \frac{1}{Z(v,h)}\exp\left(-\left(\frac{1}{2}\left(v-Wh-b\right)^{\top}\Sigma^{-1}\left(v-Wh-b\right)\right)+c^{\top}h+b^{\top}\Sigma^{-1}Wh+\frac{1}{2}h^{\top}W^{\top}\Sigma^{-1}Wh+\frac{1}{2}b^{\top}\Sigma^{-1}b\right)\\
+\\
+ & = & \frac{1}{Z(v,h)}\exp\Bigg[-\left(\frac{1}{2}\left(v\right)^{\top}\Sigma^{-1}\left(v\right)-\left(v\right)^{\top}\Sigma^{-1}\left(Wh\right)-\left(v\right)^{\top}\Sigma^{-1}\left(b\right)+\left(Wh\right)^{\top}\Sigma^{-1}\left(b\right)+\frac{1}{2}\left(Wh\right)^{\top}\Sigma^{-1}\left(Wh\right)+\frac{1}{2}\left(b\right)^{\top}\Sigma^{-1}\left(b\right)\right)\\
+ &  & +c^{\top}h+b^{\top}\Sigma^{-1}Wh+\frac{1}{2}h^{\top}W^{\top}\Sigma^{-1}Wh+\frac{1}{2}b^{\top}\Sigma^{-1}b\Bigg]\\
+ & = & \frac{1}{Z(v,h)}\exp\Bigg[-\frac{1}{2}\left(v\right)^{\top}\Sigma^{-1}\left(v\right)+\left(v\right)^{\top}\Sigma^{-1}\left(Wh\right)+\left(v\right)^{\top}\Sigma^{-1}\left(b\right)+c^{\top}h\Bigg]
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v) & = & \frac{1}{Z(v)}\exp\Bigg[-\frac{1}{2}\left(v\right)^{\top}\Sigma^{-1}\left(v\right)+\left(v\right)^{\top}\Sigma^{-1}\left(b\right)\Bigg]\\
+ &  & \sum_{h}\exp\left(\left(v\right)^{\top}\Sigma^{-1}\left(Wh\right)+c^{\top}h\right)\\
+ & = & \frac{1}{Z(v)}\exp\Bigg[-\frac{1}{2}\left(v\right)^{\top}\Sigma^{-1}\left(v\right)+\left(v\right)^{\top}\Sigma^{-1}\left(b\right)\Bigg]\\
+ &  & \prod_{j}\left(1+\exp\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\log p(v) & = & -\frac{1}{2}\left(v\right)^{\top}\Sigma^{-1}\left(v\right)+\left(v\right)^{\top}\Sigma^{-1}\left(b\right)+\sum_{j}\log\left(1+\exp\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)\right)\\
+ &  & -\log Z(v)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\log p(v)}{\partial W_{:,j}} & = & \sigma\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)\left(v\Sigma^{-1}\right)\\
+ &  & -\left\langle \sigma\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)\left(v\Sigma^{-1}\right)\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v_{i}|h) & = & |2\pi\Sigma|^{-\frac{1}{2}}\exp\left(-\frac{1}{2}\left(v-Wh-b\right)^{\top}\Sigma^{-1}\left(v-Wh-b\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(h_{i}|v) & \propto & \frac{1}{Z(h_{i})}\exp\left(-h_{i}\left(v^{\top}\Sigma^{-1}W_{:,i}+c_{i}\right)\right)\\
+ & = & \sigma\left(-\left(v^{\top}\Sigma^{-1}W_{:,i}+c_{i}\right)\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\log p(v)}{b} & = & v-\left\langle v\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\log p(v)}{c_{j}} & = & \sigma\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)-\left\langle \sigma\left(v^{\top}\Sigma^{-1}W_{:,j}+c_{j}\right)\right\rangle _{p(v)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Replicated Softmax
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v,h) & = & \frac{1}{Z(v,h)}\exp\left(v^{\top}Wh+b^{\top}v+c^{\top}h\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+p(v) & = & \frac{\sum_{h}\exp\left(v_{k}^{\top}Wh+b^{\top}v_{k}+c^{\top}h\right)}{\sum_{k}\sum_{h}\exp\left(v_{k}^{\top}Wh+b^{\top}v_{k}+c^{\top}h\right)}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
